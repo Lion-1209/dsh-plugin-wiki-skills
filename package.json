@@ -14,7 +14,8 @@
   "files": [
     "index.js",
     "cordis.patch.yml",
-    "skills/"
+    "skills/",
+    "ORIGINAL_LICENSE"
   ],
   "keywords": [
     "dsh-plugin",
