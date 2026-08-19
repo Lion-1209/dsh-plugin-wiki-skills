@@ -30,6 +30,12 @@ The package declares a `dsh.bundle` patch that inserts one `wiki-skills` row. Pa
 | `wiki-query` | Answer from the vault: hot cache → index → pages, with citations |
 | `wiki-lint` | Health check: orphans, dead links, frontmatter gaps, stale index entries |
 | `save` | File conversation insights back into the vault |
+| `think` | The 10-principle reasoning loop (OBSERVE…GROW) every wiki skill maps onto |
+| `obsidian-markdown` | Obsidian Flavored Markdown syntax reference (wikilinks, callouts, embeds) |
+| `obsidian-bases` | Obsidian Bases reference for data views over note properties |
+| `defuddle` | Cleaning fetched web pages before ingestion (ad-free readable text) |
+
+The upstream `autoresearch`, `canvas`, `wiki-cli`, `wiki-fold`, `wiki-mode`, and `wiki-retrieve` skills are not bundled: their script-bound mechanics are covered natively by [dsh-plugin-wiki-tools](https://github.com/Lion-1209/dsh-plugin-wiki-tools) (query/write/rename/scaffold/archive/lint with BM25 retrieval); the research and canvas workflows remain upstream features.
 
 ## Behavior
 

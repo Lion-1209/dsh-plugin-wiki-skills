@@ -6,7 +6,11 @@ import { parseSkillFile, name as pluginName } from '../index.js'
 
 const SKILL_NAME = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const EXPECTED_SKILLS = [
+  'defuddle',
+  'obsidian-bases',
+  'obsidian-markdown',
   'save',
+  'think',
   'wiki',
   'wiki-ingest',
   'wiki-lint',
