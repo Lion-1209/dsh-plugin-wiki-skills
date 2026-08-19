@@ -15,9 +15,7 @@ allowed-tools: Read Write Edit Glob Grep Bash
 > for DeepSeek Harness. The upstream product scripts referenced below — transport
 > detection, wiki-mode.py, wiki-lock.sh, DragonScale address allocation, .vault-meta/ —
 > are not bundled here. Filesystem operations map to the standard dsh fs/shell tools,
-> and the companion package dsh-plugin-wiki-tools provides native wiki_query /
-> wiki_write / wiki_lint tools for the mechanical core: path routing, delta tracking,
-> index/log bookkeeping, and health checks.
+> and the companion package dsh-plugin-wiki-tools provides native wiki_query / wiki_write / wiki_rename / wiki_scaffold / wiki_archive / wiki_lint tools for the mechanical core: search, bookkeeping writes, vault-wide renames, scaffolding, source archiving, and health checks.
 
 
 # wiki: Claude + Obsidian Knowledge Companion
