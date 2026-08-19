@@ -87,38 +87,28 @@ Sub-agent rule from v1.6 — *"Sub-agents MUST NOT call `scripts/allocate-addres
 
 ## Delta Tracking
 
-Before ingesting any file, check `.raw/.manifest.json` to avoid re-processing unchanged sources.
+The manifest `.raw/.manifest.json` records a sha256 hash per source so unchanged sources are never re-processed.
 
-```bash
-# Check if manifest exists
-[ -f .raw/.manifest.json ] && echo "exists" || echo "no manifest yet"
-```
+**dsh adaptation:** the manifest is tool-maintained — never hand-edit it and never hand-compute hashes. Pass the source to the write tool and let it decide:
 
-**Manifest format** (create if missing):
+- When writing the source summary page, call `wiki_write` with `source_path: ".raw/articles/<file>.md"`.
+- Unchanged hash → the tool returns `already_ingested` and writes nothing; report "Already ingested (unchanged); use force to re-ingest."
+- Re-ingest → the same call with `force: true` rewrites and re-registers.
+- Entity/concept pages created or updated during the ingest are plain `wiki_write` calls (no `source_path`); the source page's manifest entry is the single record.
+
+**Manifest format** (maintained by the tool, shown for reference):
 ```json
 {
   "sources": {
     ".raw/articles/article-slug-2026-04-08.md": {
-      "hash": "abc123",
+      "hash": "sha256-hex",
       "ingested_at": "2026-04-08",
-      "pages_created": ["wiki/sources/article-slug.md", "wiki/entities/Person.md"],
-      "pages_updated": ["wiki/index.md"]
+      "pages_created": ["Article Slug"],
+      "pages_updated": ["Plugin-First Architecture"]
     }
   }
 }
 ```
-
-**Before ingesting a file:**
-1. Compute a hash: `md5sum [file] | cut -d' ' -f1` (or `sha256sum` on Linux).
-2. Check if the path exists in `.manifest.json` with the same hash.
-3. If hash matches, skip. Report: "Already ingested (unchanged). Use `force` to re-ingest."
-4. If missing or hash differs, proceed with ingest.
-
-**After ingesting a file:**
-1. Record `{hash, ingested_at, pages_created, pages_updated}` in `.manifest.json`.
-2. Write the updated manifest back.
-
-Skip delta checking if the user says "force ingest" or "re-ingest".
 
 ---
 
@@ -251,7 +241,7 @@ Do not silently overwrite old claims. Flag and let the user decide.
 
 ## What Not to Do
 
-- **Source files under `.raw/` are immutable.** Do not modify the files that users drop there (articles, transcripts, images). The `.raw/.manifest.json` delta tracker and its `address_map` (DragonScale Mechanism 2) are the only files under `.raw/` that `wiki-ingest` itself maintains. Treat every other file under `.raw/` as read-only source content.
+- **Source files under `.raw/` are immutable.** Do not modify the files that users drop there (articles, transcripts, images). The `.raw/.manifest.json` delta tracker and its `address_map` (DragonScale Mechanism 2) are the only files under `.raw/` that change during ingest — and in the dsh adaptation they are maintained exclusively by the wiki tools (via `wiki_write` with `source_path`), never by hand. Treat every other file under `.raw/` as read-only source content.
 - Do not create duplicate pages. Always check the index and search before creating.
 - Do not skip the log entry. Every ingest must be recorded.
 - Do not skip the hot cache update. It is what keeps future sessions fast.
