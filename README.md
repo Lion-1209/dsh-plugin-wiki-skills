@@ -1,8 +1,18 @@
 # dsh-plugin-wiki-skills
 
+[![npm version](https://img.shields.io/npm/v/dsh-plugin-wiki-skills)](https://www.npmjs.com/package/dsh-plugin-wiki-skills)
+[![npm weekly downloads](https://img.shields.io/npm/dw/dsh-plugin-wiki-skills)](https://www.npmjs.com/package/dsh-plugin-wiki-skills)
+[![License: MIT](https://img.shields.io/npm/l/dsh-plugin-wiki-skills)](LICENSE)
+
 English | [中文](#中文)
 
 The [claude-obsidian](https://github.com/AgriciDaniel/claude-obsidian)-derived knowledge-suite skills as a [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin: `wiki`, `wiki-ingest`, `wiki-query`, `wiki-lint`, and `save`, mounted on the `ctx.skills` registry as a read-only bundled provider.
+
+```sh
+dsh plugin --profile web add dsh-plugin-wiki-skills
+```
+
+*If this suite helps you, a ⭐ helps other dsh users find it. 如果这套技能帮到了你，欢迎点个 Star。*
 
 ## Attribution
 
